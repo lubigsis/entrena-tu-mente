@@ -1,3 +1,4 @@
+console.log('acá');
 //declaro variables y referencio el DOM
 let entrada = document.getElementById('datoJS');
 let salida = document.getElementById('salidaJS');
@@ -18,22 +19,53 @@ function comprueba(){
         entrada.value = ''; //p/ir borrando lo q' escriba el user.
 
         if(++aciertos < numeroOperaciones){
-        nuevaOperacion(resultado);                 //REVER!
-        }else{
+        nuevaOperacion(resultado);                 
+        }
+        else{
             salida.innerHTML = '¡VICTORIA!';
             location.reload;
         }
  
-    }else{
+    }
+    else{
         salida.innerHTML = 'ERROR';
         location.reload();
 }
+}
 
-function nuevaOperacion(){
+//nueva operación basándome en el resultado actual.
+function nuevaOperacion(numAnterior){
+    let numNuevo;
+    let operador;
+    let caracterOperador;
+    let pregunta;
+
+    //obtengo el segundo operando de la operación:
+    numNuevo = numAleat(20, 80);
+    operador = numAleat(1, 2); //1 = +; 2 = -;
+
+    switch(operador){
+        case 1: 
+        caracterOperador = '+';
+        resultado = numAnterior + numNuevo;
+        break;
+        case 2: 
+        caracterOperador = '-';
+        resultado = numAnterior - numNuevo;
+        break;
+    }
+
+//------------------------------------------------------------muestro al user la operación--------------------------
+
+pregunta = numAnterior + '' + caracterOperador + '' + numNuevo + ' =';
+document.getElementById('preguntaJS').innerHTML = pregunta;
 
 }
 
 
+function numAleat(limInf, limSup){
+    return limInf + Math.floor( Math.random() * (limSup - limInf + 1) );
+}
 
 /*-------------------------------------------------------------------------------------------------------------------*/
 /*Programo el botón para verificar si se ha resuelto bien la operación cuando se le hace 'click' | enter | Intro-------*/
@@ -44,3 +76,5 @@ window.addEventListener('keydown', function(e){
     if (e.keycode == 13) comprueba();//q' se ejecute comprueba solo si se presionó Intro
 
 });
+
+nuevaOperacion(resultado);
