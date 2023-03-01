@@ -16,21 +16,24 @@ let idIntervalos; //guarda el id del evento intervalos
 function comprueba(){
     if (entrada.value == resultado){
         salida.innerHTML = 'CORRECTO';
-        entrada.value = ''; //p/ir borrando lo q' escriba el user.
+        entrada.value = ''; //p/ir borrando lo q' escriba el user.        
 
         if(++aciertos < numeroOperaciones){
         nuevaOperacion(resultado);                 
         }
         else{
             salida.innerHTML = '¡VICTORIA!';
-            location.reload;
+           /* location.reload();*/k
         }
  
     }
     else{
         salida.innerHTML = 'ERROR';
-        location.reload();
+        /*location.reload();*/
 }
+    if(!entrada.hasFocus){
+         entrada.focus();   /*rever */
+        }
 }
 
 //nueva operación basándome en el resultado actual.
@@ -46,13 +49,13 @@ function nuevaOperacion(numAnterior){
 
     switch(operador){
         case 1: 
-        caracterOperador = '+';
-        resultado = numAnterior + numNuevo;
-        break;
+            caracterOperador = '+';
+            resultado = numAnterior + numNuevo;
+            break;
         case 2: 
-        caracterOperador = '-';
-        resultado = numAnterior - numNuevo;
-        break;
+            caracterOperador = '-';
+            resultado = numAnterior - numNuevo;
+            break;
     }
 
 //------------------------------------------------------------muestro al user la operación--------------------------
