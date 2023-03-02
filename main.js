@@ -23,18 +23,19 @@ function comprueba(){
         }
         else{
             salida.innerHTML = '¡VICTORIA!';
-           /* location.reload();*/k
-        }
- 
+           /* location.reload();*/ 
     }
+}
     else{
         salida.innerHTML = 'ERROR';
+        entrada.value = "";
         /*location.reload();*/
-}
+    }
     if(!entrada.hasFocus){
-         entrada.focus();   /*rever */
-        }
+         entrada.focus();   /*q' se ponga el cursor titilante*/
+    }
 }
+
 
 //nueva operación basándome en el resultado actual.
 function nuevaOperacion(numAnterior){
@@ -58,26 +59,44 @@ function nuevaOperacion(numAnterior){
             break;
     }
 
-//------------------------------------------------------------muestro al user la operación--------------------------
+    //-----------------------------------------muestro al user la operación q' tiene q' resolver--------------------------
 
-pregunta = numAnterior + '' + caracterOperador + '' + numNuevo + ' =';
-document.getElementById('preguntaJS').innerHTML = pregunta;
+    pregunta = numAnterior + ' ' + caracterOperador + ' ' + numNuevo + ' =';
+    document.getElementById('preguntaJS').innerHTML = pregunta;
 
-}
+    }
 
 
-function numAleat(limInf, limSup){
-    return limInf + Math.floor( Math.random() * (limSup - limInf + 1) );
-}
+    function numAleat(limInf, limSup){
+        return limInf + Math.floor( Math.random() * (limSup - limInf + 1) );
+    }
 
-/*-------------------------------------------------------------------------------------------------------------------*/
-/*Programo el botón para verificar si se ha resuelto bien la operación cuando se le hace 'click' | enter | Intro-------*/
+    /*-------------------------------------------------------------------------------------------------------------------*/
+    /*Programo el botón para verificar si se ha resuelto bien la operación cuando se le hace 'click' | enter | Intro-------*/
 
-document.getElementById('botonJS').addEventListener('click', comprueba);
-window.addEventListener('keydown', function(e){
+    document.getElementById('botonJS').addEventListener('click', comprueba);
+    window.addEventListener('keydown', function(e){
 
-    if (e.keycode == 13) comprueba();//q' se ejecute comprueba solo si se presionó Intro
+        if (e.keycode == 13) comprueba();//q' se ejecute comprueba solo si se presionó Intro (REVER)
 
-});
+    });
 
-nuevaOperacion(resultado);
+    nuevaOperacion(resultado);
+    // Se pone el foco en el INPUT y así el jugador puede empezar a jugar directamente sin que tenga antes que hacer clic sobre este...
+    entrada.focus();
+
+
+
+    //----------------------------------------------TIEMPO-------------------------------------------------
+
+    reloj.innerHTML = "Tiempo restante: " + tiempo;
+    idIntv = setInterval(function(){
+                            tiempo--; //voy decrementando la variable tiempo.
+                            reloj.innerHTML = "Tiempo restante: " + tiempo;
+                            if(tiempo == 0){
+                                clearInterval(idIntv);      // se desactiva el tiempo
+                                alert("¡ SE ACABÓ EL TIEMPO, LO SIENTO !");
+                                location.reload();	// se recarga la página para empezar otra partida
+                            }
+                        }, 1000);
+
